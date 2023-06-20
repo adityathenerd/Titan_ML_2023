@@ -14,7 +14,7 @@ import pickle
 with open('hrv_pickle', 'rb') as f:
     predict_stress = pickle.load(f)
 
-def predict_stress(MEAN_RR, SDRR, RMSSD):
+def calc_hrv(MEAN_RR, SDRR, RMSSD):
     df = pd.DataFrame({'MEAN_RR':[MEAN_RR],
                    'SDRR': [SDRR],
                    'RMSSD': [RMSSD]
@@ -27,3 +27,5 @@ def predict_stress(MEAN_RR, SDRR, RMSSD):
     prob_perc = np.mean(cat_prob)*100
 
     return prob_perc, cat
+
+# print(calc_hrv(898.2928684, 108.1994235, 14.50760903))
