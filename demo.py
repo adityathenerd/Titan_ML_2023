@@ -8,7 +8,7 @@ navigation_sidebar = st.sidebar.selectbox('Choose an option',('Health Fitness Sc
 st.header("Applicant's Details")
 
 
-print(result_hrv(898.2928684, 108.1994235, 14.50760903))
+print(calc_hrv(898.2928684, 108.1994235, 14.50760903))
 
 #Applicant's Details
 first_name, last_name = st.columns(2)
