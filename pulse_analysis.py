@@ -13,7 +13,9 @@ import matplotlib.pyplot as plt
 
 # import csv file
 sample = pd.read_csv('pulse sensor.csv')
-sample = sample.drop(sample.columns[[0, 1, 2, 4, 5]], axis=1)
+#sample = sample.drop(sample.columns[[0, 1, 2, 4, 5]], axis=1)
+sample = sample.drop(sample.columns[[0, 1]], axis=1)
+sample = sample.drop(sample.columns[[1, 3, 4]], axis=1)
 sample = sample.iloc[2:]
 sample = sample.reset_index(drop=True)
 sample.columns = ['Timestamp', 'pulse']
@@ -53,3 +55,7 @@ def rmssd(nn_intervals):
 MEAN_RR = mean_rr(rr_intervals)
 SDRR = sdrr(rr_intervals)
 RMSSD = rmssd(rr_intervals)
+
+print(MEAN_RR)
+print(SDRR)
+print(RMSSD)
