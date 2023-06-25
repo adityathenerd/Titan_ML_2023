@@ -56,6 +56,3 @@ MEAN_RR = mean_rr(rr_intervals)
 SDRR = sdrr(rr_intervals)
 RMSSD = rmssd(rr_intervals)
 
-print(MEAN_RR)
-print(SDRR)
-print(RMSSD)
