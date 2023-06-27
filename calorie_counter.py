@@ -52,8 +52,8 @@ def cal_upstairs(weight):
     calories = upstairs_time*(upstairs_MET*3.5*weight)/200
     return calories
 
-def cal_standing(weight):
-    calories = standing_time*(standing_MET*3.5*weight)/200
+def cal_walking(weight):
+    calories = walking_time*(walking_MET*3.5*weight)/200
     return calories
 
 def total_cal(weight):

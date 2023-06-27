@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from hrv import *
 from pulse_analysis import *
+from calorie_counter import *
 
 ######
 #csv files
@@ -40,7 +41,6 @@ if navigation_sidebar == 'Health Fitness Score':
     with mobile_no:
         st.text_input("Mobile Number")
 
-
     #Health Details
     st.header("Applicant's Health Details")
 
@@ -57,7 +57,7 @@ if navigation_sidebar == 'Health Fitness Score':
 
 # individual score analysis
 if navigation_sidebar == 'Individual Score Analysis':
-    input_box = st.selectbox('Output', ('Pulse Rate Metrics', 'Steps Count Metrics'))
+    input_box = st.selectbox('Output', ('Pulse Rate Metrics', 'Calorie Count Metrics'))
     
     if input_box == 'Pulse Rate Metrics':
         result_hrv = calc_hrv(MEAN_RR,SDRR,RMSSD)
@@ -73,7 +73,3 @@ if navigation_sidebar == 'Individual Score Analysis':
         fig = go.Figure(data=[go.Pie(labels=hrv_labels, values=hrv_values, pull=[0.05,0])])
         fig.update_traces(marker=dict(colors=['#99ff99', '#66b3ff']))
         st.plotly_chart(fig)
-
-
-
-        
