@@ -7,7 +7,7 @@ import pickle
 from scipy import stats
 
 columns = ['user','activity','timestamp', 'x-axis', 'y-axis', 'z-axis']
-df_har = pd.read_csv('WISDM_ar_v1.1/WISDM_ar_v1.1_raw.txt', header = None, names = columns, error_bad_lines=False)
+df_har = pd.read_csv('WISDM_ar_v1.1_raw.txt', header = None, names = columns, error_bad_lines=False)
 
 # user-19:
 user_19_df = df_har[df_har['user'] == 19]

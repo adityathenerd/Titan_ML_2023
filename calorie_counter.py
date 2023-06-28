@@ -5,7 +5,7 @@ from pandas import Series
 
 # datasets
 columns = ['user','activity','timestamp', 'x-axis', 'y-axis', 'z-axis']
-df_har = pd.read_csv('WISDM_ar_v1.1/WISDM_ar_v1.1_raw.txt', header = None, names = columns, error_bad_lines=False)
+df_har = pd.read_csv('WISDM_ar_v1.1_raw.txt', header = None, names = columns, error_bad_lines=False)
 
 # user-19:
 user_19_df = df_har[df_har['user'] == 19]
@@ -59,4 +59,5 @@ def cal_walking(weight):
 def total_cal(weight):
     calories = (jogging_time*jogging_MET + sitting_time*sitting_MET + standing_MET*standing_time + downstairs_MET*downstairs_time + upstairs_MET*upstairs_time + standing_time*standing_MET)*3.5*weight/200
     return calories
+
 
