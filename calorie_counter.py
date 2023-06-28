@@ -33,31 +33,31 @@ downstairs_time = (user_19_df_downstairs['timestamp'][len(user_19_df_downstairs)
 standing_time = (user_19_df_standing['timestamp'][len(user_19_df_standing)-1]-user_19_df_standing['timestamp'][0])/6000000000
 
 def cal_jogging(weight):
-    calories = jogging_time*(jogging_MET*3.5*weight)/200
+    calories = round(jogging_time*(jogging_MET*3.5*weight)/200,2)
     return calories
 
 def cal_sitting(weight):
-    calories = sitting_time*(sitting_MET*3.5*weight)/200
+    calories = round(sitting_time*(sitting_MET*3.5*weight)/200,2)
     return calories
 
 def cal_standing(weight):
-    calories = standing_time*(standing_MET*3.5*weight)/200
+    calories = round(standing_time*(standing_MET*3.5*weight)/200,2)
     return calories
 
 def cal_downstairs(weight):
-    calories = downstairs_time*(downstairs_MET*3.5*weight)/200
+    calories = round(downstairs_time*(downstairs_MET*3.5*weight)/200,2)
     return calories
 
 def cal_upstairs(weight):
-    calories = upstairs_time*(upstairs_MET*3.5*weight)/200
+    calories = round(upstairs_time*(upstairs_MET*3.5*weight)/200,2)
     return calories
 
 def cal_walking(weight):
-    calories = walking_time*(walking_MET*3.5*weight)/200
+    calories = round(walking_time*(walking_MET*3.5*weight)/200,2)
     return calories
 
 def total_cal(weight):
-    calories = (jogging_time*jogging_MET + sitting_time*sitting_MET + standing_MET*standing_time + downstairs_MET*downstairs_time + upstairs_MET*upstairs_time + standing_time*standing_MET)*3.5*weight/200
+    calories = round((jogging_time*jogging_MET + sitting_time*sitting_MET + standing_MET*standing_time + downstairs_MET*downstairs_time + upstairs_MET*upstairs_time + standing_time*standing_MET)*3.5*weight/200,2)
     return calories
 
 

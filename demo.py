@@ -55,7 +55,6 @@ if navigation_sidebar == 'Health Fitness Score':
         bmi = weight/(height*height)
         if st.button("Check BMI") and weight > 0 and height > 0 :
             st.write(bmi)
-        st.write(weight)
 
     if input_box == 'Steps Count':
         #########################################Jogging
@@ -287,20 +286,67 @@ if navigation_sidebar == 'Individual Score Analysis':
     if input_box == 'Calorie Count Metrics':
         weight = st.number_input("Enter weight (in kg)", min_value=0.0, max_value=200.0, step=0.5)
         if st.button('Submit'):
-            st.header("Calories burnt :")
-            st.write(round(total_cal(weight), 3))
-            labels = 'Sitting' ,'Jogging', 'Walking', 'Upstairs', 'Downstairs',  'Standing'
-            sizes = [cal_sitting(weight),cal_jogging(weight),cal_walking(weight), cal_upstairs(weight), cal_downstairs(weight),  cal_standing(weight)]
-            explode = (0, 0, 0.1, 0, 0, 0)  
+            lith_dict = {'LITH': ['Sitting', 'Standing', 
+                        'Walking', 'Upstairs', 
+                        'Downstairs', 'Jogging'],
+                'COUNT': [cal_sitting(weight),cal_standing(weight), cal_walking(weight), cal_upstairs(weight), 
+                                cal_downstairs(weight), cal_jogging(weight)]}
 
-            fig1, ax1 = plt.subplots()
-            ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
-                    shadow=True, startangle=90)
-            ax1.axis('equal')  
-            st.header("Calories Pie Chart")
-            st.pyplot(fig1)
-        else:
-            st.write("Enter weight in above box")
+            df = pd.DataFrame.from_dict(lith_dict)
+
+            # Get key properties for colours and labels
+            max_value_full_ring = max(df['COUNT'])
+
+            ring_colours = ['#2f4b7c', '#665191', '#a05195','#d45087',
+                        '#f95d6a','#ff7c43']
+
+            ring_labels = [f'   {x} ({v}) ' for x, v in zip(list(df['LITH']), 
+                                                            list(df['COUNT']))]
+            data_len = len(df)
+
+            # Begin creating the figure
+            fig = plt.figure(figsize=(10,10), linewidth=10
+                            )
+
+            rect = [0.1,0.1,0.8,0.8]
+
+            # Add axis for radial backgrounds
+            ax_polar_bg = fig.add_axes(rect, polar=True, frameon=False)
+            ax_polar_bg.set_theta_zero_location('N')
+            ax_polar_bg.set_theta_direction(1)
+
+            # Loop through each entry in the dataframe and plot a grey
+            # ring to create the background for each one
+            for i in range(data_len):
+                ax_polar_bg.barh(i, round(max_value_full_ring*1.5*np.pi/max_value_full_ring,2), 
+                                color='grey', 
+                                alpha=0.1)
+            # Hide all axis items
+            ax_polar_bg.axis('off')
+                
+            # Add axis for radial chart for each entry in the dataframe
+            ax_polar = fig.add_axes(rect, polar=True, frameon=False)
+            ax_polar.set_theta_zero_location('N')
+            ax_polar.set_theta_direction(1)
+            ax_polar.set_rgrids([0, 1, 2, 3, 4, 5], 
+                                labels=ring_labels, 
+                                angle=0, 
+                                fontsize=14, fontweight='bold',
+                                color='black', verticalalignment='center')
+
+            # Loop through each entry in the dataframe and create a coloured 
+            # ring for each entry
+            for i in range(data_len):
+                ax_polar.barh(i, round(list(df['COUNT'])[i]*1.5*np.pi/max_value_full_ring,2), 
+                            color=ring_colours[i])
+
+
+            # Hide all grid elements for the    
+            ax_polar.grid(False)
+            ax_polar.tick_params(axis='both', left=False, bottom=False, 
+                            labelbottom=False, labelleft=True)
+            st.set_option('deprecation.showPyplotGlobalUse', False)
+            st.pyplot()
 
 
 
