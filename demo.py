@@ -14,7 +14,6 @@ calc_hrv(MEAN_RR,SDRR,RMSSD)
 
 if navigation_sidebar == 'Health Fitness Score':
     st.header("Applicant's Details")
-
     #Applicant's Details
     first_name, last_name = st.columns(2)
 
@@ -41,22 +40,25 @@ if navigation_sidebar == 'Health Fitness Score':
 
     #Health Details
     st.header("Applicant's Health Details")
-
-    input_box = st.selectbox('Input', ('Pulse Rate', 'Steps Count', 'BMI metrics'))
+    st.markdown("_The following details are included regarding the inputs:_")
+    st.markdown("**Pulse:** _The pulse was measured within a duration of 125 seconds, providing a comprehensive assessment of the user's heart rate._")
+    st.markdown("**Activity Tracker:** _The activity tracker encompasses various physical activities, including jogging, walking, going upstairs, going downstairs, sitting, and standing. This allows for accurate tracking and monitoring of the user's daily movement patterns._")
+    st.markdown("**BMI (Body Mass Index):** _BMI is a crucial measure for evaluating general health and is calculated based on the user's height and weight ratio. It provides valuable insights into the user's body composition and overall health status._")
+    input_box = st.selectbox('Input', ('Pulse Rate', 'Activity Tracker', 'BMI Metrics'))
 
     if input_box == 'Pulse Rate':
         pulse_rate_fig = px.line(sample, x = "Time(sec)", y = "pulse",title="Pulse Rate")
         pulse_rate_fig.update_traces(line_color = "red")
         st.plotly_chart(pulse_rate_fig)
 
-    if input_box == 'BMI metrics':
+    if input_box == 'BMI Metrics':
         weight = st.number_input("Enter weight (in kg)", min_value=0.0, max_value=200.0, step=0.5)
         height = st.number_input("Enter height (in m)", min_value=0.01, max_value=2.5, step = 0.01)
         bmi = weight/(height*height)
         if st.button("Check BMI") and weight > 0 and height > 0 :
             st.write(bmi)
 
-    if input_box == 'Steps Count':
+    if input_box == 'Activity Tracker':
         #########################################Jogging
         # plot 1 
         x1 = tuple(range(0,501))
@@ -170,34 +172,7 @@ if navigation_sidebar == 'Health Fitness Score':
         
         st.pyplot(fig)
 
-        ############################## Downstairs
-        # plot 1 
-        x1 = tuple(range(0,501))
-        y1 = user_19_df_downstairs['x-axis'][:501]
-
-        #plot 2
-        x2 = tuple(range(0,501))
-        y2 = user_19_df_downstairs['y-axis'][:501]
-
-        #  plot 3
-        x3 = tuple(range(0,501))
-        y3 = user_19_df_downstairs['z-axis'][:501]
-
-        st.subheader("Downstairs")
-        fig, axs = plt.subplots(1, 3, figsize=(15, 4))
-
-        axs[0].plot(x1, y1)
-        axs[0].set_title("X-axis")
         
-        axs[1].plot(x2, y2)
-        axs[1].set_title("Y-axis")
-        
-        axs[2].plot(x3, y3)
-        axs[2].set_title("z-axis")
-        fig.tight_layout()
-        
-        st.pyplot(fig)
-
         ############################## Standing
         # plot 1 
         x1 = tuple(range(0,501))
@@ -277,6 +252,10 @@ if navigation_sidebar == 'Individual Score Analysis':
         hrv_labels = ['Yes', 'No']
         hrv_values = [int(v1), 100-int(v1)]
         ###########
+        st.markdown("<span style='color:red'>*</span><span style='color:red'>*</span>", unsafe_allow_html=True)
+        st.markdown("**No Stress:** _Participants were allowed to work on tasks for as long as they needed, with a maximum duration of 45 minutes. However, they were unaware of this time limit._")
+        st.markdown("**Time pressure:** _Participants faced a reduced time constraint, with the task completion time shortened to 2/3 of the time taken in the neutral condition._")
+        st.markdown("**Interruption:** _Participants were interrupted during their assigned tasks._")
         st.header("Probability of " + result_hrv[1])
         fig = go.Figure(data=[go.Pie(labels=hrv_labels, values=hrv_values, pull=[0.05,0])])
         fig.update_traces(marker=dict(colors=['#99ff99', '#66b3ff']))
