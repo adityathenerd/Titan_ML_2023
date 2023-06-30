@@ -25,11 +25,11 @@ Run the following code to set-up project in your local system:
 $ git clone https://github.com/adityathenerd/Titan_ML_2023
 $ cd Titan_ML_2023
 $ pip install requirements.txt
-
+```
 ## Usage:
 Run the following code to use the streamlit app on your system:
 ```bash
 $ streamlit run demo.py
-
+```
 
 
