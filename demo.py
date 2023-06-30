@@ -7,10 +7,60 @@ from hrv import *
 from pulse_analysis import *
 from calorie_counter import *
 
+################fitness score ##############
+##### pulse 
+real_pulse = 80
+avg_pulse = 92
+# real_pulse/avg_pulse*30*(factor)
+v_pulse = (80/92)*30*0.75
+
+####### stress cat
+# v_stress = 20 - (percentage of type of stress)*(weightage of that stress)
+v_stress = 20
+percent, category =  calc_hrv(MEAN_RR,SDRR,RMSSD)
+if category == 'time pressure':
+    v_stress = 20 - (percent/100)*16
+if category == 'interruption':
+    v_stress = 20 - (percent/100)*8
+
+###### calories burnt
+def BMR_men(weight, height, age):
+    # Men: BMR = 88.362 + (13.397 x weight in kg) + (4.799 x height in cm) – (5.677 x age in years)
+    BMR = 88.362 + (13.397*weight) + (4.799*height) - (5.677*age)
+    return BMR
+
+def BMR_women(weight, height, age):
+    # Women: BMR = 447.593 + (9.247 x weight in kg) + (3.098 x height in cm) – (4.330 x age in years)
+    BMR = 447.593 + (9.2478*weight) + (3.098*height) - (4.330*age)
+    return BMR
+
+## calorie counter
+# frac = calorie to be burnt - calorie burnt / calorie to be burnt
+# v_calorie = (1-frac) * 25
+frac = (BMR_men(65,170,21) - total_cal(65))/BMR_men(65,170,21)
+if frac < 0:
+    frac = 0
+v_calorie = (1-frac)*25
+
+#v_sleep = no of hours slept/8*(sleep weightage)*(factor)
+v_sleep = 6.5/8*10*0.85
+#if val >= 98 and val <= 100 no change in v_spo2 else v_spo2 = (val/98) * (factor)
+v_spo2 = 12.5*0.75
+
+fitness_score = v_pulse+v_stress + v_calorie + v_sleep + v_spo2
+# print(v_pulse)
+# print(v_stress)
+# print(v_calorie)
+# print(v_sleep)
+# print(v_spo2)
+
+
+############################################
+
 #sidebar
 navigation_sidebar = st.sidebar.selectbox('Choose an option',('Health Fitness Score', 'Individual Score Analysis'))
 #calling HRV
-calc_hrv(MEAN_RR,SDRR,RMSSD)
+
 
 if navigation_sidebar == 'Health Fitness Score':
     st.header("Applicant's Details")
@@ -240,8 +290,34 @@ if navigation_sidebar == 'Health Fitness Score':
 ############
 # individual score analysis
 if navigation_sidebar == 'Individual Score Analysis':
+
+    st.header("Overall Fitness Score")
+    fitness_score = round(fitness_score, 2)
+    health_header = ""
+    if fitness_score <=40:
+        st.markdown(f'<h2 style="color: red;">{fitness_score}</h2>', unsafe_allow_html=True)
+        health_header ="Keep pushing yourself! There's room for improvement, but with dedication, you'll reach your fitness goals."
+        st.markdown(f'<h6 style="color: red;">{health_header}</h6>', unsafe_allow_html=True)
+         
+    if fitness_score >40 and fitness_score <=60:
+        st.markdown(f'<h2 style="color: orange;">{fitness_score}</h2>', unsafe_allow_html=True)
+        health_header ="You're on the right track! Stay consistent and focused, and you'll see progress in no time."
+        st.markdown(f'<h6 style="color: orange;">{health_header}</h6>', unsafe_allow_html=True)
+
+    if fitness_score >60 and fitness_score <=80:
+        st.markdown(f'<h2 style="color: #50C878;">{fitness_score}</h2>', unsafe_allow_html=True)
+        health_header ="Great work! You've made significant strides in your fitness journey. Keep up the momentum and continue challenging yourself."
+        st.markdown(f'<h6 style="color:#50C878 ;">{health_header}</h6>', unsafe_allow_html=True)
+
+    if fitness_score >80 and fitness_score <=100:
+        st.markdown(f'<h2 style="color: green;">{fitness_score}</h2>', unsafe_allow_html=True)
+        health_header ="Wow! You're crushing it! Your dedication and hard work are paying off. Keep up the amazing effort!"
+        st.markdown(f'<h6 style="color:  green ;">{health_header}</h6>', unsafe_allow_html=True)
+
     input_box = st.selectbox('Output', ('Pulse Rate Metrics','Calorie Count Metrics'))
     
+    
+
     if input_box == 'Pulse Rate Metrics':
         result_hrv = calc_hrv(MEAN_RR,SDRR,RMSSD)
         st.write("_Mean RR Interval :_", MEAN_RR )
