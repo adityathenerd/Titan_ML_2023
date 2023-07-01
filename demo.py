@@ -292,6 +292,7 @@ if navigation_sidebar == 'Health Fitness Score':
 if navigation_sidebar == 'Individual Score Analysis':
 
     st.header("Overall Fitness Score")
+    st.write("*Fitness score calculatd here is taken for a user weighing 65 kgs with the activity and pulse rate shown in the input section before.*")
     fitness_score = round(fitness_score, 2)
     health_header = ""
     if fitness_score <=40:
