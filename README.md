@@ -1,4 +1,4 @@
-# A Holistic Approach to Fitness: Hacksmiths
+# A Holistic Approach to Fitness: Team HackSmiths
 
 ## Theme: 
 Fit Score: Non-Invasive Health Monitoring and Diagnostics Hackathon
@@ -36,6 +36,6 @@ $ streamlit run demo.py
 [Click here](https://hacksmiths.streamlit.app/) to check the deployed demo project.
 
 Cheers,
-Team Hacksmiths.
+Team HackSmiths.
 
 
