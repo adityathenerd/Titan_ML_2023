@@ -32,4 +32,10 @@ Run the following code to use the streamlit app on your system:
 $ streamlit run demo.py
 ```
 
+## Deployed Link:
+[Click here](https://hacksmiths.streamlit.app/) to check the deployed demo project.
+
+Cheers,
+Team Hacksmiths.
+
 
