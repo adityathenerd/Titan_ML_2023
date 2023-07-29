@@ -75,30 +75,6 @@ if st.session_state.messages[-1]["role"] != "assistant":
     message = {"role": "assistant", "content": full_response}
     st.session_state.messages.append(message)
 
-    st.text("\n")
-    st.text("Please take the following Beck Anxiety Inventory (BAI) test:")
-    questions = [
-        "Numbness or tingling",
-        "Feeling hot",
-        "Wobbliness in legs",
-        "Unable to relax",
-        "Fear of worst happening",
-    ]
-    anxiety_score = 0
-
-    for i, question in enumerate(questions, start=1):
-        st.text(f"{i}. {question}")
-        option = st.radio("Choose the most appropriate option:", ["Not at all", "Mildly", "Moderately", "Severely"], key=i)
-        if option == "Mildly":
-            anxiety_score += 1
-        elif option == "Moderately":
-            anxiety_score += 2
-        elif option == "Severely":
-            anxiety_score += 3
-
-    st.text("\n")
-    st.write(f"Your BAI anxiety score: {anxiety_score}")
-
 # Analysis
 if st.button('Analysis'):
     st.write('Here is the detailed analysis of your vitals: ')
