@@ -17,7 +17,7 @@ v_pulse = (80/92)*30*0.75
 ####### stress cat
 # v_stress = 20 - (percentage of type of stress)*(weightage of that stress)
 v_stress = 20
-percent, category =  calc_hrv(MEAN_RR,SDRR,RMSSD)
+percent, category =  pred_hrv(MEAN_RR,SDRR,RMSSD)
 if category == 'time pressure':
     v_stress = 20 - (percent/100)*16
 if category == 'interruption':
@@ -320,7 +320,7 @@ if navigation_sidebar == 'Individual Score Analysis':
     
 
     if input_box == 'Pulse Rate Metrics':
-        result_hrv = calc_hrv(MEAN_RR,SDRR,RMSSD)
+        result_hrv = pred_hrv(MEAN_RR,SDRR,RMSSD)
         st.write("_Mean RR Interval :_", MEAN_RR )
         st.write("_Root-mean-squared :_",round(RMSSD,3))
         st.write("_Standard-deviation:_",round(SDRR,3))
