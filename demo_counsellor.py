@@ -75,12 +75,12 @@ if st.session_state.messages[-1]["role"] != "assistant":
     message = {"role": "assistant", "content": full_response}
     st.session_state.messages.append(message)
 
-# Analysis
-if st.button('Analysis'):
-    st.write('Here is the detailed analysis of your vitals: ')
-    st.title("Stress & HRV:")
-    # import calculate hrv and predict hrv and do the needful visualisations
-    st.title("Daily Activity and Calories:")
-    # Show the radial graph and compare it with BMR to show if one is at optimum fitness level
-    st.title("Oxygen Saturation:")
-    # Get request from firebase to get the value
+# # Analysis
+# if st.button('Analysis'):
+#     st.write('Here is the detailed analysis of your vitals: ')
+#     st.title("Stress & HRV:")
+#     # import calculate hrv and predict hrv and do the needful visualisations
+#     st.title("Daily Activity and Calories:")
+#     # Show the radial graph and compare it with BMR to show if one is at optimum fitness level
+#     st.title("Oxygen Saturation:")
+#     # Get request from firebase to get the value
