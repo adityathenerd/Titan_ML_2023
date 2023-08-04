@@ -320,7 +320,7 @@ if navigation_sidebar == 'Individual Score Analysis':
     
 
     if input_box == 'Pulse Rate Metrics':
-        result_hrv = pred_hrv(MEAN_RR,SDRR,RMSSD)
+        result_hrv = calc_hrv(MEAN_RR,SDRR,RMSSD)
         st.write("_Mean RR Interval :_", MEAN_RR )
         st.write("_Root-mean-squared :_",round(RMSSD,3))
         st.write("_Standard-deviation:_",round(SDRR,3))
@@ -403,7 +403,3 @@ if navigation_sidebar == 'Individual Score Analysis':
                             labelbottom=False, labelleft=True)
             st.set_option('deprecation.showPyplotGlobalUse', False)
             st.pyplot()
-
-
-
-
