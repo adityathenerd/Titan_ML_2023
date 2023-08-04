@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from pandas import Series
 import matplotlib.pyplot as plt
+from scipy.signal import find_peaks
 import seaborn as sns
 from sklearn import preprocessing
 from sklearn.metrics import classification_report
@@ -14,7 +15,7 @@ import pickle
 with open('hrv_pickle', 'rb') as f:
     predict_stress = pickle.load(f)
 
-def calc_hrv(MEAN_RR, SDRR, RMSSD):
+def pred_hrv(MEAN_RR, SDRR, RMSSD):
     df = pd.DataFrame({'MEAN_RR':[MEAN_RR],
                    'SDRR': [SDRR],
                    'RMSSD': [RMSSD]
@@ -28,4 +29,23 @@ def calc_hrv(MEAN_RR, SDRR, RMSSD):
 
     return prob_perc, cat
 
-# print(calc_hrv(898.2928684, 108.1994235, 14.50760903))
+def calculate_hrv(pulse_rate_data):
+    # Calculate the RR intervals from the pulse rate data
+    rr_intervals = [60 / rate for rate in pulse_rate_data]
+
+    # Calculate the HRV as the standard deviation of RR intervals
+    hrv = np.std(rr_intervals)
+
+    return hrv
+
+def calculate_hrv_from_ppg(ppg_signal, sampling_rate):
+    # Find the peaks in the PPG signal
+    peaks, _ = find_peaks(ppg_signal, height=0.5)  # Adjust the height threshold as needed
+
+    # Calculate the RR intervals from the PPG signal (in seconds)
+    rr_intervals = np.diff(peaks) / sampling_rate
+
+    # Calculate the HRV as the standard deviation of RR intervals
+    hrv = np.std(rr_intervals)
+
+    return hrv
