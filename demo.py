@@ -16,10 +16,10 @@ weight = st.sidebar.number_input("Weight (kg)", min_value=0.1, max_value=300.0, 
 height = st.sidebar.number_input("Height (cm)", min_value=0.1, max_value=200.0, step=0.1)
 #sidebar
 navigation_sidebar = st.sidebar.selectbox('Health Parameters',('Applicant\'s Health Details', 'Overall Fitness Score'))
-#calling HRV
-submit = st.sidebar.button("Submit")
-if submit:
-    navigation_sidebar = 'Overall Fitness Score'
+# #calling HRV
+# submit = st.sidebar.button("Submit")
+# if submit:
+#     navigation_sidebar = 'Overall Fitness Score'
 
 
 
@@ -252,7 +252,7 @@ if navigation_sidebar == 'Overall Fitness Score':
     ####### stress cat
     # v_stress = 20 - (percentage of type of stress)*(weightage of that stress)
     v_stress = 20
-    percent, category =  calc_hrv(MEAN_RR,SDRR,RMSSD)
+    percent, category =  pred_hrv(MEAN_RR,SDRR,RMSSD)
     if category == 'time pressure':
         v_stress = 20 - (percent/100)*16
     if category == 'interruption':
@@ -325,7 +325,7 @@ if navigation_sidebar == 'Overall Fitness Score':
 
     # if input_box == 'Pulse Rate Metrics':
     st.markdown("<h2 style='color: #008080'>Pulse Rate Metrics</h2>", unsafe_allow_html=True)
-    result_hrv = calc_hrv(MEAN_RR,SDRR,RMSSD)
+    result_hrv = pred_hrv(MEAN_RR,SDRR,RMSSD)
     st.write("_Mean RR Interval :_", MEAN_RR )
     st.write("_Root-mean-squared :_",round(RMSSD,3))
     st.write("_Standard-deviation:_",round(SDRR,3))
