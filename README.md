@@ -22,7 +22,7 @@ We developed a Streamlit empowered interactive user interface to show the fitnes
 ## Set-up:
 Run the following code to set-up project in your local system:
 ```bash
-$ git clone https://github.com/adityathenerd/Titan_ML_2023
+$ git clone https://github.com/adityathenerd/Titan_ML_2023/tree/secondary
 $ cd Titan_ML_2023
 $ pip install requirements.txt
 ```
