@@ -51,6 +51,12 @@ def rmssd(nn_intervals):
   rmssd = np.sqrt(np.mean(diff**2))
   return rmssd
 
+def avg_pulse(pulse):
+  val = np.average(pulse)
+  return val
+
+AVG_PULSE = avg_pulse(pulse)
+
 # Import these paras to hrv.py to calc hrv
 MEAN_RR = mean_rr(rr_intervals)
 SDRR = sdrr(rr_intervals)
