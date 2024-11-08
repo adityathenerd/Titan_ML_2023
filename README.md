@@ -36,6 +36,7 @@ $ streamlit run demo.py
 [Click here](https://hacksmiths.streamlit.app/) to check the deployed demo project.
 
 Cheers,
-Team HackSmiths.
+Team HackSmiths
+NIT Rourkela
 
 
